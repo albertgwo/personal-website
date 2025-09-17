@@ -1,0 +1,10 @@
+[observer]
+password = homeassistant123
+upsmon secondary
+
+[admin]
+password = admin123
+actions = set
+actions = fsd
+instcmds = all
+upsmon primary
