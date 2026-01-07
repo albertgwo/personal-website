@@ -93,14 +93,24 @@ class DependencyGraph:
     """Tracks symbol definitions and their dependencies."""
 
     definitions: Dict[str, dict] = field(default_factory=dict)
+    _undefined: Set[str] = field(default_factory=set)
 
     def add_definition(self, symbol: str, cell: int, depends_on: List[str]) -> None:
         """Record a symbol definition."""
-        raise NotImplementedError("TODO: implement")
+        self.definitions[symbol] = {
+            "cell": cell,
+            "depends_on": [d for d in depends_on if d not in BUILTINS],
+        }
 
     def find_undefined(self) -> Set[str]:
         """Find symbols used but never defined."""
-        raise NotImplementedError("TODO: implement")
+        all_deps = set()
+        for info in self.definitions.values():
+            all_deps.update(info["depends_on"])
+
+        defined = set(self.definitions.keys())
+        self._undefined = all_deps - defined - BUILTINS
+        return self._undefined
 
     def trace_to_root(self, symbol: str) -> List[str]:
         """Trace dependency chain back to root."""
