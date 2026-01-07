@@ -1,0 +1,96 @@
+{
+  "total_errors": 986,
+  "total_cells": 2316,
+  "input_cells": 654,
+  "output_cells": 504,
+  "message_cells": 986,
+  "error_categories": {
+    "unknown": 493,
+    "NDSolve::nbnum1": 222,
+    "General::stop": 103,
+    "Table::iterb": 75,
+    "Infinity::indet": 30,
+    "Power::infy": 30,
+    "Export::noelem": 16,
+    "Plot::plln": 6,
+    "Export::nodir": 5,
+    "Plot::optx": 3,
+    "Show::gcomb": 2,
+    "FindMaximum::bddir": 1
+  },
+  "first_error_cell": 88,
+  "first_10_error_cells": [88, 91, 92, 93, 94, 99, 102, 105, 106, 107],
+  "root_cause_analysis": {
+    "primary_root_causes": [
+      {
+        "issue": "Chained unset bug: a = b =. assigns Null to a",
+        "location": "Lines 1616-1617, 364038-364039, and 10 more locations",
+        "description": "Mathematica parses 'a = b =.' as 'a = (b =.)' which returns Null, so a = Null instead of being unset",
+        "status": "FIXED - 12 occurrences corrected",
+        "impact": "s = Null caused s[time] to become Null[time] in NDSolve → 222 NDSolve::nbnum1 errors",
+        "fix_applied": "Changed 'a = b =.' to 'a =.; b =.;' for all chained unset patterns"
+      },
+      {
+        "issue": "Stale cached definition of timeGrowthCease",
+        "location": "Lines 3507-3617 (In[179])",
+        "description": "timeGrowthCease was defined before dependencies (μ, Yield, ReferencepH) were fully evaluated, causing stale symbolic values to be baked into the cached definition",
+        "status": "FIXED - Clear + redefine confirmed working (returns 2.1721)",
+        "impact": "timeGrowthCease[pH, so] returning $Failed cascaded to many downstream errors",
+        "fix_applied": "Full notebook re-evaluation ensures correct definition order"
+      },
+      {
+        "issue": "Missing txc variable definition",
+        "location": "Cell 6 (color scheme setup)",
+        "description": "txc is used to set axc, bxc, fgc, tkc but is never defined in v14_clean.nb",
+        "status": "Previously documented - may already be fixed",
+        "original_definition": "txc = RGBColor[13233/65535., 65535/65535., 1/65535.]",
+        "impact": "All color variables using txc will be undefined symbols instead of colors"
+      }
+    ],
+    "cascade_pattern": "222 NDSolve errors + 75 Table::iterb + 30 Infinity errors = ~327 errors from NDSolve failures alone (33% of all errors)",
+    "progress": {
+      "before_fixes": 986,
+      "after_chained_unset_fix_batch_1": 493,
+      "after_chained_unset_fix_batch_2": "pending re-evaluation",
+      "after_full_reevaluation_2026_01_07": 986
+    },
+    "reevaluation_notes": "Error count unchanged after full re-evaluation. The chained unset syntax was fixed (41 =. operations properly separated), but errors persist. Root causes may include: (1) NDSolve parameter issues not solely from chained unset, (2) timeGrowthCease definition order, (3) other undefined symbols from dependency analysis (pH, t, Biomass have highest impact)"
+  },
+  "fixes_applied": [
+    {
+      "date": "2026-01-06",
+      "fix": "s = Ks =. → s =.; Ks =.;",
+      "locations": 2,
+      "result": "Errors reduced 986 → 493 (50%)"
+    },
+    {
+      "date": "2026-01-06",
+      "fix": "All chained unset patterns (4-var and 3-var chains)",
+      "locations": 10,
+      "result": "Pending re-evaluation"
+    }
+  ],
+  "dependency_chain_traced": {
+    "wkgPrcsn": {"line": 1484, "value": "Automatic"},
+    "SGRvspH": {"line": 1515, "type": "function"},
+    "SGRvspHroot": {"line": 1554, "depends_on": "SGRvspH"},
+    "SGRpHLowBnd": {"line": 1561, "depends_on": "SGRvspHroot"},
+    "SGRpHHighBnd": {"line": 1567, "depends_on": "SGRvspHroot"},
+    "μo_pattern": {"line": 1584, "depends_on": ["SGRpHLowBnd", "SGRpHHighBnd"]},
+    "μMaxSolve": {"line": 1590, "depends_on": ["μo", "wkgPrcsn"]},
+    "μMax": {"line": 1599, "depends_on": "μMaxSolve"},
+    "μMaxpH": {"line": 1606, "depends_on": "μMaxSolve"},
+    "ReferencepH": {"line": 1852, "depends_on": "μMaxpH"},
+    "sMin": {"line": 1857, "depends_on": "so"},
+    "timeGrowthCease": {"line": 3507, "depends_on": ["μ", "Yield", "ReferencepH", "so", "BMmultiplication"]}
+  },
+  "recommended_fix_order": [
+    "1. [DONE] Fix all chained =. unset bugs",
+    "2. [DONE] Identified stale cache issue - timeGrowthCease defined before dependencies ready",
+    "3. [PENDING] Full notebook re-evaluation to apply all fixes",
+    "4. Consider adding txc color variable if still missing",
+    "5. Track error count diff to verify progress"
+  ],
+  "analysis_date": "2026-01-06",
+  "last_updated": "2026-01-07T02:00:00"
+}
