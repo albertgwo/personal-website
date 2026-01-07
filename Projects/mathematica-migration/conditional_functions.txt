@@ -1,0 +1,80 @@
+# Conditional Function Definitions with Symbolic Pattern Guards
+# These functions use /; pattern guards with symbolic bounds that fail in v14
+# Generated: 2026-01-07
+
+## PROBLEM DESCRIPTION
+Pattern guards like `pH_ /; pH < SGRpHLowBnd` fail when bound variables are symbolic.
+In v14, conditions with unresolved symbols don't match, causing functions to return unevaluated.
+
+## AFFECTED FUNCTIONS
+
+### 1. μo[pH_] (Greek letter mu, subscript o)
+Location: Lines 1572-1587 (first occurrence), 364025-364038 (duplicated section)
+
+Definition pattern:
+  μo[pH_ /; pH < SGRpHLowBnd || pH > SGRpHHighBnd] := 0
+  μo[pH_ /; (pH >= SGRpHLowBnd) && (pH <= SGRpHHighBnd)] := SGRvspH[pH]
+
+Bound variables:
+  - SGRpHLowBnd (set at line 1560)
+  - SGRpHHighBnd (set at line 1566)
+
+Dependencies:
+  - Used by: μMaxSolve, FindMaximum calculations
+  - Depends on: SGRvspH (interpolation function)
+
+### 2. NYield[pH_]
+Location: Lines 1745-1760 (first occurrence), 364197-364212 (duplicated section)
+
+Definition pattern:
+  NYield[pH_ /; pH < YieldpHLowBnd || pH > YieldpHHighBnd] := YOutsideNiche
+  NYield[pH_ /; (pH >= YieldpHLowBnd) && (pH <= YieldpHHighBnd)] := YieldvspH[pH]
+
+Bound variables:
+  - YieldpHLowBnd (set at line 1729)
+  - YieldpHHighBnd (set at line 1735)
+
+Dependencies:
+  - Used by: nyieldMaxSolve, FindMaximum calculations, rStar calculations
+  - Depends on: YieldvspH (interpolation function), YOutsideNiche constant
+
+## PATTERN GUARD LINES (grep results)
+1573:   RowBox[{"pH_", "/;",
+1580:    RowBox[{"pH_", "/;",
+1746:    RowBox[{"pH_", "/;",
+1755:     RowBox[{"pH_", "/;",
+364026:   RowBox[{"pH_", "/;",
+364033:    RowBox[{"pH_", "/;",
+364198:    RowBox[{"pH_", "/;",
+364207:     RowBox[{"pH_", "/;",
+
+## BOUND VARIABLE LOCATIONS
+1470:  RowBox[{"SGRpHLowBnd", "=."}]   (Clear statement)
+1471:  RowBox[{"SGRpHHighBnd", "=."}]  (Clear statement)
+1560:  RowBox[{"SGRpHLowBnd", "=", ...]  (Assignment)
+1566:  RowBox[{"SGRpHHighBnd", "=", ...] (Assignment)
+1650:  RowBox[{"YieldpHLowBnd", "=."}]  (Clear statement)
+1651:  RowBox[{"YieldpHHighBnd", "=."}] (Clear statement)
+1729:  RowBox[{"YieldpHLowBnd", "=", ...] (Assignment)
+1735:  RowBox[{"YieldpHHighBnd", "=", ...] (Assignment)
+
+## NICHE BOUNDARY CALCULATIONS (downstream usage)
+1825:  pHNicheBoundaryLow = Max[SGRpHLowBnd, YieldpHLowBnd]
+1830:  pHNicheBoundaryHigh = Min[SGRpHHighBnd, YieldpHHighBnd]
+
+## MIGRATION STRATEGY
+Option A: Convert to explicit If[] statements
+  μo[pH_?NumericQ] := If[pH < SGRpHLowBnd || pH > SGRpHHighBnd, 0, SGRvspH[pH]]
+
+Option B: Use Piecewise[]
+  μo[pH_?NumericQ] := Piecewise[{{SGRvspH[pH], SGRpHLowBnd <= pH <= SGRpHHighBnd}}, 0]
+
+Option C: Add ?NumericQ and keep structure (may not fully resolve issue)
+
+## VALIDATION REQUIRED
+After migration, verify:
+1. μo[7.0] returns numeric value (not unevaluated)
+2. NYield[7.0] returns numeric value
+3. FindMaximum[μo[pH], {pH, 6.9}] succeeds
+4. FindMaximum[NYield[pH], {pH, 7}] succeeds
+5. rStar calculations complete without errors
