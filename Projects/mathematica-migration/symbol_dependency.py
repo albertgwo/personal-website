@@ -294,7 +294,80 @@ def parse_notebook_symbols(path: Path, cell_range: tuple = None) -> Dict[str, di
     return symbols
 
 
+def main():
+    """CLI entry point."""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Analyze symbol dependencies in Mathematica notebooks"
+    )
+    parser.add_argument("notebook", type=Path, help="Path to .nb file")
+    parser.add_argument("--roots", action="store_true",
+                        help="Show cascade root causes (undefined symbols)")
+    parser.add_argument("--trace", type=str, metavar="SYMBOL",
+                        help="Trace dependency chain for a symbol")
+    parser.add_argument("--json", action="store_true",
+                        help="Output as JSON")
+    parser.add_argument("-o", "--output", type=Path,
+                        help="Write output to file")
+
+    args = parser.parse_args()
+
+    if not args.notebook.exists():
+        print(f"Error: {args.notebook} not found")
+        return 1
+
+    # Parse notebook
+    symbols = parse_notebook_symbols(args.notebook)
+
+    # Build graph
+    graph = DependencyGraph()
+    for name, info in symbols.items():
+        graph.add_definition(name, info["cell"], info["depends_on"])
+
+    if args.roots:
+        undefined = graph.find_undefined()
+        cascade_roots = []
+        for sym in undefined:
+            impact = graph.count_dependents(sym)
+            cascade_roots.append({"symbol": sym, "impact": impact})
+        cascade_roots.sort(key=lambda x: -x["impact"])
+
+        if args.json:
+            output = json.dumps(cascade_roots, indent=2)
+        else:
+            output = "Cascade Root Causes (undefined symbols):\n"
+            for item in cascade_roots[:20]:
+                output += f"  {item['symbol']}: affects {item['impact']} symbols\n"
+
+        if args.output:
+            args.output.write_text(output)
+        else:
+            print(output)
+
+    elif args.trace:
+        chain = graph.trace_to_root(args.trace)
+        if args.json:
+            output = json.dumps({"symbol": args.trace, "chain": chain}, indent=2)
+        else:
+            output = f"Dependency chain for {args.trace}:\n  " + " -> ".join(chain)
+
+        if args.output:
+            args.output.write_text(output)
+        else:
+            print(output)
+
+    else:
+        # Default: show summary
+        undefined = graph.find_undefined()
+        print(f"Parsed {len(symbols)} symbol definitions")
+        print(f"Found {len(undefined)} undefined symbols")
+        if undefined:
+            print(f"Top undefined: {list(undefined)[:5]}")
+
+    return 0
+
+
 if __name__ == "__main__":
     import sys
-    print("symbol_dependency.py - not yet implemented")
-    sys.exit(1)
+    sys.exit(main())
