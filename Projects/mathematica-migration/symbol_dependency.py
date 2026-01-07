@@ -114,11 +114,37 @@ class DependencyGraph:
 
     def trace_to_root(self, symbol: str) -> List[str]:
         """Trace dependency chain back to root."""
-        raise NotImplementedError("TODO: implement")
+        chain = [symbol]
+        visited = {symbol}
+
+        current = symbol
+        while current in self.definitions:
+            deps = self.definitions[current]["depends_on"]
+            if not deps:
+                break
+            # Follow first dependency
+            next_sym = deps[0]
+            if next_sym in visited:
+                chain.append(f"{next_sym} (CIRCULAR)")
+                break
+            chain.append(next_sym)
+            visited.add(next_sym)
+            current = next_sym
+
+        return chain
 
     def count_dependents(self, symbol: str) -> int:
-        """Count how many symbols depend on this one."""
-        raise NotImplementedError("TODO: implement")
+        """Count how many symbols depend on this one (direct + transitive)."""
+        dependents = set()
+
+        def find_dependents(sym: str):
+            for name, info in self.definitions.items():
+                if sym in info["depends_on"] and name not in dependents:
+                    dependents.add(name)
+                    find_dependents(name)
+
+        find_dependents(symbol)
+        return len(dependents)
 
 
 def parse_notebook_symbols(path: Path, cell_range: tuple = None) -> Dict[str, dict]:
