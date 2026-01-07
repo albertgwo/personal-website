@@ -1,0 +1,482 @@
+[
+  {
+    "symbol": "pH",
+    "impact": 79
+  },
+  {
+    "symbol": "t",
+    "impact": 52
+  },
+  {
+    "symbol": "Biomass",
+    "impact": 28
+  },
+  {
+    "symbol": "Thickness",
+    "impact": 18
+  },
+  {
+    "symbol": "timeGrowthCease",
+    "impact": 17
+  },
+  {
+    "symbol": "PlotRange",
+    "impact": 17
+  },
+  {
+    "symbol": "growthRate",
+    "impact": 15
+  },
+  {
+    "symbol": "Rationalize",
+    "impact": 12
+  },
+  {
+    "symbol": "Options",
+    "impact": 10
+  },
+  {
+    "symbol": "FontFamily",
+    "impact": 10
+  },
+  {
+    "symbol": "cartesian3DVPCoordinate",
+    "impact": 10
+  },
+  {
+    "symbol": "FontSize",
+    "impact": 9
+  },
+  {
+    "symbol": "BoxRatios",
+    "impact": 8
+  },
+  {
+    "symbol": "ViewPoint",
+    "impact": 8
+  },
+  {
+    "symbol": "TextStyle",
+    "impact": 8
+  },
+  {
+    "symbol": "BiomassRef",
+    "impact": 7
+  },
+  {
+    "symbol": "PlotStyle",
+    "impact": 7
+  },
+  {
+    "symbol": "plotRange",
+    "impact": 7
+  },
+  {
+    "symbol": "Take",
+    "impact": 7
+  },
+  {
+    "symbol": "vectorLength",
+    "impact": 7
+  },
+  {
+    "symbol": "virtualpHGridline",
+    "impact": 6
+  },
+  {
+    "symbol": "location",
+    "impact": 6
+  },
+  {
+    "symbol": "virtualTimeGridline",
+    "impact": 6
+  },
+  {
+    "symbol": "Substrate",
+    "impact": 6
+  },
+  {
+    "symbol": "Frame",
+    "impact": 6
+  },
+  {
+    "symbol": "ratecolor",
+    "impact": 6
+  },
+  {
+    "symbol": "AspectRatio",
+    "impact": 6
+  },
+  {
+    "symbol": "Dashing",
+    "impact": 6
+  },
+  {
+    "symbol": "SGRvspH",
+    "impact": 5
+  },
+  {
+    "symbol": "time",
+    "impact": 5
+  },
+  {
+    "symbol": "vectorProjection",
+    "impact": 5
+  },
+  {
+    "symbol": "_",
+    "impact": 5
+  },
+  {
+    "symbol": "YieldvspH",
+    "impact": 5
+  },
+  {
+    "symbol": "Yield",
+    "impact": 5
+  },
+  {
+    "symbol": "Background",
+    "impact": 5
+  },
+  {
+    "symbol": "timeGrowingAloneCurveEnd",
+    "impact": 4
+  },
+  {
+    "symbol": "BmassKpAlone",
+    "impact": 4
+  },
+  {
+    "symbol": "Contours",
+    "impact": 4
+  },
+  {
+    "symbol": "boxRatios",
+    "impact": 4
+  },
+  {
+    "symbol": "ContourShading",
+    "impact": 4
+  },
+  {
+    "symbol": "ColorFunction",
+    "impact": 4
+  },
+  {
+    "symbol": "ContourStyle",
+    "impact": 4
+  },
+  {
+    "symbol": "GrowthCurveColoredbySpecificGrowthRate",
+    "impact": 4
+  },
+  {
+    "symbol": "ContourPlot",
+    "impact": 4
+  },
+  {
+    "symbol": "GrowthCurveColoredbyGrowthRate",
+    "impact": 4
+  },
+  {
+    "symbol": "FontWeight",
+    "impact": 4
+  },
+  {
+    "symbol": "lineDirection",
+    "impact": 4
+  },
+  {
+    "symbol": "BaseStyle",
+    "impact": 4
+  },
+  {
+    "symbol": "DensityPlot",
+    "impact": 4
+  },
+  {
+    "symbol": "WorkingPrecision",
+    "impact": 4
+  },
+  {
+    "symbol": "M",
+    "impact": 3
+  },
+  {
+    "symbol": "v1",
+    "impact": 3
+  },
+  {
+    "symbol": "viewPoint",
+    "impact": 3
+  },
+  {
+    "symbol": "LocalNmGrowthRateSmoothing3D",
+    "impact": 3
+  },
+  {
+    "symbol": "Transpose",
+    "impact": 3
+  },
+  {
+    "symbol": "NmGlucoseCapture",
+    "impact": 3
+  },
+  {
+    "symbol": "FrameLabel",
+    "impact": 3
+  },
+  {
+    "symbol": "MRef",
+    "impact": 3
+  },
+  {
+    "symbol": "NYield",
+    "impact": 3
+  },
+  {
+    "symbol": "curveSmoothing3D",
+    "impact": 3
+  },
+  {
+    "symbol": "i",
+    "impact": 3
+  },
+  {
+    "symbol": "normalLift",
+    "impact": 3
+  },
+  {
+    "symbol": "v2_",
+    "impact": 3
+  },
+  {
+    "symbol": "NmNetBiomass",
+    "impact": 3
+  },
+  {
+    "symbol": "v2",
+    "impact": 3
+  },
+  {
+    "symbol": "v1_",
+    "impact": 3
+  },
+  {
+    "symbol": "showing",
+    "impact": 3
+  },
+  {
+    "symbol": "Interpolation",
+    "impact": 3
+  },
+  {
+    "symbol": "RefGthCurveYLabelOffset",
+    "impact": 3
+  },
+  {
+    "symbol": "FontColor",
+    "impact": 3
+  },
+  {
+    "symbol": "s",
+    "impact": 3
+  },
+  {
+    "symbol": "alone",
+    "impact": 3
+  },
+  {
+    "symbol": "Prepend",
+    "impact": 2
+  },
+  {
+    "symbol": "biomass_",
+    "impact": 2
+  },
+  {
+    "symbol": "angleBetweenTwoVectors",
+    "impact": 2
+  },
+  {
+    "symbol": "biomass",
+    "impact": 2
+  },
+  {
+    "symbol": "time_",
+    "impact": 2
+  },
+  {
+    "symbol": "lineThickness",
+    "impact": 2
+  },
+  {
+    "symbol": "GthCurveYLabelOffset",
+    "impact": 2
+  },
+  {
+    "symbol": "timeGrowingAloneCease",
+    "impact": 2
+  },
+  {
+    "symbol": "fundamentalNiche",
+    "impact": 2
+  },
+  {
+    "symbol": "apparentDiameter",
+    "impact": 2
+  },
+  {
+    "symbol": "mediapH",
+    "impact": 2
+  },
+  {
+    "symbol": "AxesOrigin",
+    "impact": 2
+  },
+  {
+    "symbol": "InterpolatingFunctionDomain",
+    "impact": 2
+  },
+  {
+    "symbol": "glucoseConsumed",
+    "impact": 1
+  },
+  {
+    "symbol": "growthRateMax",
+    "impact": 1
+  },
+  {
+    "symbol": "nlift",
+    "impact": 1
+  },
+  {
+    "symbol": "pneumoniae",
+    "impact": 1
+  },
+  {
+    "symbol": "Produced",
+    "impact": 1
+  },
+  {
+    "symbol": "c",
+    "impact": 1
+  },
+  {
+    "symbol": "percentKpBiomass",
+    "impact": 1
+  },
+  {
+    "symbol": "a",
+    "impact": 1
+  },
+  {
+    "symbol": "centerOffset",
+    "impact": 1
+  },
+  {
+    "symbol": "growthRateMaxRef",
+    "impact": 1
+  },
+  {
+    "symbol": "AxesEdge",
+    "impact": 1
+  },
+  {
+    "symbol": "e",
+    "impact": 1
+  },
+  {
+    "symbol": "NAvgGrowthRate",
+    "impact": 1
+  },
+  {
+    "symbol": "VP",
+    "impact": 1
+  },
+  {
+    "symbol": "x",
+    "impact": 1
+  },
+  {
+    "symbol": "NLMaxGrowthRate",
+    "impact": 1
+  },
+  {
+    "symbol": "BiomassCache",
+    "impact": 1
+  },
+  {
+    "symbol": "FindFit",
+    "impact": 1
+  },
+  {
+    "symbol": "Degree",
+    "impact": 1
+  },
+  {
+    "symbol": "Max",
+    "impact": 1
+  },
+  {
+    "symbol": "by",
+    "impact": 1
+  },
+  {
+    "symbol": "GblNmGrowthRate",
+    "impact": 1
+  },
+  {
+    "symbol": "ImageSize",
+    "impact": 1
+  },
+  {
+    "symbol": "Min",
+    "impact": 1
+  },
+  {
+    "symbol": "LocalNmGrowthRate",
+    "impact": 1
+  },
+  {
+    "symbol": "vpShift",
+    "impact": 1
+  },
+  {
+    "symbol": "AxesLabel",
+    "impact": 1
+  },
+  {
+    "symbol": "Drop",
+    "impact": 1
+  },
+  {
+    "symbol": "d",
+    "impact": 1
+  },
+  {
+    "symbol": "f",
+    "impact": 1
+  },
+  {
+    "symbol": "NetBiomass",
+    "impact": 1
+  },
+  {
+    "symbol": "Ceiling",
+    "impact": 1
+  },
+  {
+    "symbol": "b",
+    "impact": 1
+  },
+  {
+    "symbol": "K",
+    "impact": 1
+  },
+  {
+    "symbol": "biomassViewPointShift",
+    "impact": 1
+  }
+]
