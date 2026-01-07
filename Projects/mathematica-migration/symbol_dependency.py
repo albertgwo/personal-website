@@ -17,6 +17,31 @@ import re
 import json
 
 
+# Common Mathematica builtins that should not be treated as user-defined dependencies
+BUILTINS = {
+    # Literals
+    'True', 'False', 'Null', 'None', 'Automatic', 'All', 'Infinity',
+    'Pi', 'E', 'I',
+    # Math
+    'Sin', 'Cos', 'Tan', 'Exp', 'Log', 'Sqrt', 'Abs', 'Power',
+    'Plus', 'Times', 'Divide', 'Subtract',
+    # List operations
+    'List', 'Table', 'Map', 'Apply', 'Select', 'Cases', 'Range',
+    'Part', 'First', 'Last', 'Rest', 'Most', 'Length', 'Flatten',
+    # Control
+    'If', 'Which', 'Switch', 'Do', 'For', 'While',
+    'Module', 'Block', 'With', 'Function',
+    # Graphics
+    'Graphics', 'Graphics3D', 'Plot', 'Plot3D', 'Show',
+    'RGBColor', 'Hue', 'GrayLevel', 'Opacity',
+    'Point', 'Line', 'Polygon', 'Circle', 'Disk', 'Text',
+    # Solving
+    'NDSolve', 'DSolve', 'Solve', 'FindRoot', 'FindMinimum', 'FindMaximum',
+    # I/O
+    'Print', 'Export', 'Import', 'Clear', 'Remove',
+}
+
+
 def extract_definition(expr: str) -> dict:
     """Extract a single symbol definition from a RowBox expression.
 
@@ -35,7 +60,6 @@ def extract_definition(expr: str) -> dict:
 
         # Find all potential symbol references (words not in quotes as operators)
         # Exclude common builtins and numeric literals
-        BUILTINS = {'True', 'False', 'Null', 'None', 'Automatic', 'All', 'Infinity'}
         candidates = re.findall(r'"(\w+)"', rhs)
         # Filter out numeric literals and operators
         deps = set(c for c in candidates if not c.isdigit()) - BUILTINS - {symbol}
